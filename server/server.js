@@ -4,7 +4,9 @@ const path = require('path');
 const app = express();
 const cors = require ('cors');
 const fs = require('fs');
-var uuid = require('uuid');
+const uuid = require('uuid');
+const request = require('request');
+const qs = require('querystring');
 
 const bodyParser= require('body-parser');
 app.use(bodyParser.json());
@@ -42,7 +44,7 @@ const writeFile = (fileData, callback, filePath = transFilePath, encoding = 'utf
     });
 };
 
-app.get('/transactions/get', (req,res,next)=>{
+app.get('/api/transactions/get', (req,res,next)=>{
     fs.readFile(transFilePath, 'utf8', (err, data) => {
         if (err) {
             throw err;
@@ -51,7 +53,7 @@ app.get('/transactions/get', (req,res,next)=>{
     });
 });
 
-app.get('/transactions/get/:id', (req,res,next)=>{
+app.get('/api/transactions/get/:id', (req,res,next)=>{
     fs.readFile(transFilePath, 'utf8', (err, data) => {
         if (err) {
             throw err;
@@ -63,7 +65,7 @@ app.get('/transactions/get/:id', (req,res,next)=>{
     });
 });
 
-app.post('/transactions/create', (req,res,next)=>{
+app.post('/api/transactions/create', (req,res,next)=>{
     console.log("Create Transaction...", path.join(dir, 'transactions.json'))
     console.log('data', req.body);
     
@@ -83,7 +85,7 @@ app.post('/transactions/create', (req,res,next)=>{
 });
 
 // UPDATE
-app.put('/transactions/update/:id', (req, res) => {
+app.put('/api/transactions/update/:id', (req, res) => {
     console.log("Update Transaction...", path.join(dir, 'transactions.json'))
     console.log('data', req.body);
     readFile(data => {
@@ -99,7 +101,7 @@ app.put('/transactions/update/:id', (req, res) => {
 });
 
 // DELETE
-app.delete('/transactions/:id', (req, res) => {
+app.delete('/api/transactions/:id', (req, res) => {
 
     readFile(data => {
 
@@ -112,6 +114,24 @@ app.delete('/transactions/:id', (req, res) => {
         });
     },
         true);
+});
+
+// DO A GET TO EXTERNAL API
+// QueryParams - primary and secondary
+app.get('/api/price', (req,res,next)=>{
+    const BTC_URI = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/all'
+    + '?' + qs.stringify({crypto: 'BTC', fiat: 'SGD'});
+    const options = {
+        method: 'GET',
+        url: BTC_URI,
+        headers: {'X-testing': 'testing'}
+    };
+    request(options, (error, response, body)=>{
+        if (!error && response.statusCode == 200) {
+            // console.log(body);
+            res.status(200).json(body);
+        };
+    });
 });
 
 app.use((req,res,next)=>{

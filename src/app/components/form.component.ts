@@ -51,6 +51,8 @@ export class FormComponent implements OnInit {
           this.transactionAmount = this.tr.unit * this.rate;
           this.request = 'Edit';
           this.changeType();
+
+          this.transactForm.get('dob').setValue(moment(this.tr.dob));
           this.transactForm.get('orderDate').setValue(new Date());
         });
       } else {
@@ -60,13 +62,13 @@ export class FormComponent implements OnInit {
       }
 
    });
-    /*
+
     this.btcSvc.getPrice().then((result) => { console.log(result); this.bitcoin = result; }).catch(
         () => { console.log('API Error'); this.bitcoin = {ask: 11500, bid: 11600}; }
-    ); */
-    this.bitcoin = {ask: 11500, bid: 11600};
+    );
   }
 
+  /*
   defaultOrder = { name: 'Bob the Minion',
   contact: '98765432',
   gender: 'Male',
@@ -74,6 +76,7 @@ export class FormComponent implements OnInit {
   orderDate: '2019-10-24T03:47:35.667Z',
   orderType: 'Buy',
   unit: 123, btcAddress: '12345ABC', rate: 11500, total: 1414500 };
+  */
 
   ngOnInit() {
 
@@ -125,14 +128,16 @@ export class FormComponent implements OnInit {
       name: val.name,
       contact: val.contact,
       gender: val.gender,
-      dob: val.dob,
-      orderDate: val.orderDate,
+      dob: val.dob.valueOf(),
+      orderDate: val.orderDate.valueOf(),
       orderType: val.orderType,
       unit: val.unit,
       btcAddress: (val.orderType === 'Buy') ? val.btcAddress : null,
       rate: this.rate,
       total: this.transactionAmount
     };
+    console.log('dob', moment(val.dob).valueOf());
+
     console.log(save);
     if (this.request === 'Edit') {
       console.log('edit transaction:', this.id);

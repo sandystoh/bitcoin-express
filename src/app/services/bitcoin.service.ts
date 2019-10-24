@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { map, flatMap, toArray } from 'rxjs/operators';
 
-export const API = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/all';
+export const API_URL = 'http://localhost:3000/api/';
+// API = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/all';
 // ?crypto=BTC&fiat=SGD';
 
 @Injectable({
@@ -13,14 +14,13 @@ export class BitcoinService {
   constructor(private http: HttpClient) { }
 
   getPrice() {
-    const headers = new HttpHeaders().set('X-testing', 'testing');
-    const params = new HttpParams()
-    .set('crypto', 'BTC')
-    .set('fiat', 'SGD');
-
-    return this.http.get<any>(API, {params, headers})
+    return this.http.get<any>(API_URL + 'price')
     .pipe(
-      map(res => ({ask: res.BTCSGD.ask, bid: res.BTCSGD.bid}))
-  ).toPromise();
+      map(res => {
+        const r = JSON.parse(res);
+        return {ask: r.BTCSGD.ask, bid: r.BTCSGD.bid};
+      })
+    ).toPromise();
+
   }
 }

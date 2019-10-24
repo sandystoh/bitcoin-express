@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TransactService {
-  API_URL = 'http://localhost:3000/transactions';
+  API_URL = '/api/transactions';
+  // API_URL = 'http://localhost:3000/api/transactions';
 
   constructor(private http: HttpClient) { }
 
