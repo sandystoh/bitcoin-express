@@ -13,6 +13,7 @@ export class ConfirmComponent implements OnInit {
   tr: any;
   id: any;
   sub: any;
+  edit = false;
 
   constructor(private transSvc: TransactService, private router: Router,
               private route: ActivatedRoute) { }
@@ -27,6 +28,10 @@ export class ConfirmComponent implements OnInit {
         this.tr = r;
       });
    });
-  }
+
+    this.route.queryParams.subscribe(params => {
+     this.edit = params.edit;
+   });
+}
 
 }

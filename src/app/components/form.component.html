@@ -1,7 +1,7 @@
 <div class="transact-form">
     <mat-card class="bit-form">
         <form [formGroup]="transactForm" (ngSubmit)="onSubmit()">
-            <h2 class="center">Bitcoin Transaction Request</h2>
+            <h2 class="center">{{ request }} Bitcoin Transaction Request</h2>
             <div fxLayout="column" fxLayoutAlign="flex-start" fxLayoutGap="1vw">
             <mat-form-field class="full-width">
             <input matInput placeholder="Name" formControlName="name">
@@ -18,7 +18,7 @@
             <mat-radio-group name="gender" id="gender" formControlName="gender">
                 <div fxLayout="row" fxLayoutAlign="" fxLayoutGap="2vw">
                 <mat-radio-button value="Male">Male</mat-radio-button>
-                <mat-radio-button value="Male">Female</mat-radio-button>
+                <mat-radio-button value="Female">Female</mat-radio-button>
                 </div>
                 <mat-hint *ngIf="transactForm.touched && f.gender.errors?.required">Please input a Gender</mat-hint>
             </mat-radio-group>
@@ -38,7 +38,7 @@
             </mat-form-field>
             <h2 class="center">Select Bitcoin Transaction Type: {{transactForm.value.orderType | uppercase }} <br></h2>
             <div class="center">
-            <mat-button-toggle-group formControlName="orderType" (change)="changeType($event)"> 
+            <mat-button-toggle-group formControlName="orderType" (change)="changeType()"> 
                 <mat-button-toggle value="Buy" class="submit-button" aria-label="Buy">Buy</mat-button-toggle>
                 <mat-button-toggle value="Sell" class="submit-button" aria-label="Sell">Sell</mat-button-toggle>
             </mat-button-toggle-group>

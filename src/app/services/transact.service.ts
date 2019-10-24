@@ -23,4 +23,7 @@ export class TransactService {
     return this.http.post(this.API_URL + '/create', tran);
   }
 
+  updateTransaction(id, tran) {
+    return this.http.put(this.API_URL + '/update/' + id, tran);
+  }
 }

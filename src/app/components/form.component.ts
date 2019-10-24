@@ -4,7 +4,7 @@ import { Transaction } from '../models/transact';
 import * as moment from 'moment';
 import { BitcoinService } from '../services/bitcoin.service';
 import { TransactService } from '../services/transact.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -28,20 +28,43 @@ export class FormComponent implements OnInit {
   bitcoin = {ask: 0, bid: 0};
   rate = 0;
   transactionAmount = 0;
+  sub: any;
+  id = '';
+  tr: Transaction;
+  request = '';
 
   constructor(private formBuilder: FormBuilder, private btcSvc: BitcoinService,
-              private transSvc: TransactService, private router: Router) {
+              private transSvc: TransactService, private router: Router,
+              private route: ActivatedRoute) {
     this.transactForm = this.createFormGroup();
-    this.transactForm.get('orderDate').setValue(new Date());
-    this.transactForm.get('orderType').setValue('Buy');
     this.startDate = moment();
+    this.sub = this.route.params.subscribe(params => {
+      if (params.id) {
+        this.id = params.id;
+        console.log('edit transaction:', this.id);
 
+        this.transSvc.getTransaction(this.id).subscribe(r => {
+          console.log(r);
+          this.tr = r as Transaction;
+          this.transactForm.patchValue(this.tr);
+          this.rate = (this.transactForm.value.orderType === 'Buy') ? this.bitcoin.ask : this.bitcoin.bid;
+          this.transactionAmount = this.tr.unit * this.rate;
+          this.request = 'Edit';
+          this.changeType();
+          this.transactForm.get('orderDate').setValue(new Date());
+        });
+      } else {
+        this.transactForm.get('orderDate').setValue(new Date());
+        this.transactForm.get('orderType').setValue('Buy');
+        this.request = 'New';
+      }
+
+   });
     /*
     this.btcSvc.getPrice().then((result) => { console.log(result); this.bitcoin = result; }).catch(
         () => { console.log('API Error'); this.bitcoin = {ask: 11500, bid: 11600}; }
     ); */
     this.bitcoin = {ask: 11500, bid: 11600};
-    this.transactForm.patchValue(this.defaultOrder);
   }
 
   defaultOrder = { name: 'Bob the Minion',
@@ -84,7 +107,7 @@ export class FormComponent implements OnInit {
     this.transactionAmount = $event.target.value * this.rate;
   }
 
-  changeType(e) {
+  changeType() {
     if (this.transactForm.value.orderType === 'Sell') {
       this.transactForm.get('btcAddress').setValidators(null);
       this.transactForm.get('btcAddress').setErrors(null);
@@ -111,9 +134,18 @@ export class FormComponent implements OnInit {
       total: this.transactionAmount
     };
     console.log(save);
-    this.transSvc.saveTransaction(save).subscribe(r => {
-      console.log(r);
-      this.router.navigate(['/confirm', r['transactionId']]);
-    });
+    if (this.request === 'Edit') {
+      console.log('edit transaction:', this.id);
+      this.transSvc.updateTransaction(this.id, save).subscribe(r => {
+        console.log(r);
+        this.router.navigate(['/confirm', r['transactionId']], { queryParams: { edit: true}});
+      });
+    } else {
+      console.log('New transaction');
+      this.transSvc.saveTransaction(save).subscribe(r => {
+        console.log(r);
+        this.router.navigate(['/confirm', r['transactionId']], { queryParams: { edit: false}});
+      });
+    }
   }
 }

@@ -59,7 +59,7 @@ app.get('/transactions/get/:id', (req,res,next)=>{
         const transId = req.params["id"];
         jsonData = JSON.parse(data);
         console.log(jsonData[transId]);
-        res.send(jsonData[transId]);
+        res.status(200).send(jsonData[transId]);
     });
 });
 
@@ -91,7 +91,8 @@ app.put('/transactions/update/:id', (req, res) => {
         data[transId] = req.body;
 
         writeFile(JSON.stringify(data, null, 2), () => {
-            res.status(200).send(`Transaction id:${transId} updated`);
+            res.status(200).send({success: true, message: 'Transaction Edited',
+            transactionId: transId, transaction: data[transId] });
         });
     },
         true);

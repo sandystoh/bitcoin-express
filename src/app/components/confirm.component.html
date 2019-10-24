@@ -1,7 +1,8 @@
 <div class="transact-form">
         <mat-card class="bit-form">
-<h2 *ngIf="tr">Your {{tr.orderType}} order has been confirmed!</h2>
-<div  *ngIf = "tr">
+<h2 *ngIf="tr && !edit">Your {{tr.orderType}} order has been confirmed!</h2>
+<h2 *ngIf="tr && edit">Your {{tr.orderType}} order has been edited!</h2>
+<div *ngIf = "tr">
     <table>
     <tbody>
         <tr><td>Name:</td><td class="info">{{tr.name}}</td></tr>
@@ -16,7 +17,7 @@
         <tr><td>Total:</td><td class="info">SGD {{ tr.total | number: '.2' }}</td></tr>
    </tbody>
     </table>
-</div>
+
 
 <h2>To Complete your Transaction</h2>
 <div  *ngIf = "tr.orderType ==='Buy'">
@@ -29,6 +30,7 @@
             Once the Bitcoin has been received received we will send the SGD funds to your PayNow!</h4>
        <div class="center info" ><h4>bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5md</h4></div>
     </div>
+</div>
 <div class="center pad">
         <button mat-raised-button color="accent" [routerLink]="['/']">Back Home</button>
 </div>
