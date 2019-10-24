@@ -1,0 +1,18 @@
+.list-area {
+    padding: 20px;
+}
+
+.card {
+    width: 80vw;
+    margin: 10px;
+}
+
+.edit-btn {
+    cursor:pointer;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.edit-btn:hover {
+    background-color: #ffc100;
+}

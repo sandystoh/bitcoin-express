@@ -1,0 +1,15 @@
+{
+  "name": "bitcoin-express",
+  "version": "1.0.0",
+  "description": "bitcoin app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Sandy",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^3.3.3"
+  }
+}

@@ -1,5 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+server/node_modules
+server/package
+server/.env
+
 # compiled output
 /dist
 /tmp
