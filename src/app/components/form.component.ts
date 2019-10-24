@@ -38,48 +38,45 @@ export class FormComponent implements OnInit {
               private route: ActivatedRoute) {
     this.transactForm = this.createFormGroup();
     this.startDate = moment();
+
+}
+
+  async getPrice(): Promise<any> {
+    return await this.btcSvc.getPrice().then((result) => {
+      console.log(result); this.bitcoin = result; })
+      .catch(() => {
+        console.log('API Error');
+        this.bitcoin = {ask: 11500, bid: 11600};
+      });
+  }
+
+  ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       if (params.id) {
         this.id = params.id;
-        console.log('edit transaction:', this.id);
-
         this.transSvc.getTransaction(this.id).subscribe(r => {
-          console.log(r);
           this.tr = r as Transaction;
           this.transactForm.patchValue(this.tr);
-          this.rate = (this.transactForm.value.orderType === 'Buy') ? this.bitcoin.ask : this.bitcoin.bid;
-          this.transactionAmount = this.tr.unit * this.rate;
           this.request = 'Edit';
-          this.changeType();
-
+          this.getPrice().then(() => {
+            this.rate = (this.tr.orderType === 'Buy') ? this.bitcoin.ask : this.bitcoin.bid;
+            this.transactionAmount = this.tr.unit * this.rate;
+          });
           this.transactForm.get('dob').setValue(moment(this.tr.dob));
           this.transactForm.get('orderDate').setValue(new Date());
+          }, (e) => console.log(e), () => {
+            this.changeType();
         });
       } else {
+        this.getPrice().then(() => {
+          this.rate = (this.transactForm.value.orderType === 'Buy') ? this.bitcoin.ask : this.bitcoin.bid;
+        });
         this.transactForm.get('orderDate').setValue(new Date());
         this.transactForm.get('orderType').setValue('Buy');
         this.request = 'New';
       }
 
    });
-
-    this.btcSvc.getPrice().then((result) => { console.log(result); this.bitcoin = result; }).catch(
-        () => { console.log('API Error'); this.bitcoin = {ask: 11500, bid: 11600}; }
-    );
-  }
-
-  /*
-  defaultOrder = { name: 'Bob the Minion',
-  contact: '98765432',
-  gender: 'Male',
-  dob: '1998-07-22T00:00:00.000Z',
-  orderDate: '2019-10-24T03:47:35.667Z',
-  orderType: 'Buy',
-  unit: 123, btcAddress: '12345ABC', rate: 11500, total: 1414500 };
-  */
-
-  ngOnInit() {
-
   }
 
   get f() { return this.transactForm.controls; }
@@ -92,7 +89,7 @@ export class FormComponent implements OnInit {
       dob: new FormControl('', [Validators.required, this.ageValidator(21)]),
       orderDate: new FormControl('', [Validators.required]),
       orderType: new FormControl('', [Validators.required]),
-      unit: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      unit: new FormControl('', [Validators.required]),
       btcAddress: new FormControl('', [Validators.required]),
     });
   }
@@ -100,7 +97,6 @@ export class FormComponent implements OnInit {
   ageValidator(min: number): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
       const age = moment().diff(control.value, 'years');
-      console.log('age', age);
       return age < min ? {ageValidation: {value: control.value}} : null;
     };
   }
@@ -136,7 +132,6 @@ export class FormComponent implements OnInit {
       rate: this.rate,
       total: this.transactionAmount
     };
-    console.log('dob', moment(val.dob).valueOf());
 
     console.log(save);
     if (this.request === 'Edit') {

@@ -3,49 +3,13 @@
     "name": "Frank the Minion",
     "contact": "98765432",
     "gender": "Male",
-    "dob": "1998-07-22T00:00:00.000Z",
-    "orderDate": "2019-10-24T03:47:35.667Z",
+    "dob": 901065600000,
+    "orderDate": 1571920048458,
     "orderType": "Buy",
     "unit": "123",
     "btcAddress": "12345ABC",
-    "rate": "11500",
-    "total": "1414500"
-  },
-  "ef20d660-b976-4832-a6a7-3e9116903046": {
-    "name": "Bob the Minion",
-    "contact": "98765432",
-    "gender": "Male",
-    "dob": "1998-07-22T00:00:00.000Z",
-    "orderDate": "2019-10-24T07:46:34.912Z",
-    "orderType": "Buy",
-    "unit": 123,
-    "btcAddress": "12345ABC",
-    "rate": 11500,
-    "total": 1414500
-  },
-  "c1806ed1-5df4-4fa6-8b56-8d06c6031103": {
-    "name": "Susan the Minion",
-    "contact": "98765432",
-    "gender": "Female",
-    "dob": "1998-07-22T00:00:00.000Z",
-    "orderDate": "2019-10-24T03:47:35.667Z",
-    "orderType": "Sell",
-    "unit": 123,
-    "btcAddress": null,
-    "rate": 11600,
-    "total": 1426800
-  },
-  "3f985256-b51e-4334-8f75-98add606690c": {
-    "name": "Tim the Minion",
-    "contact": "99876999",
-    "gender": "Male",
-    "dob": "1998-07-16T00:00:00.000Z",
-    "orderDate": "2019-10-24T07:18:58.136Z",
-    "orderType": "Buy",
-    "unit": 2,
-    "btcAddress": "12345ABC",
-    "rate": 11500,
-    "total": 23000
+    "rate": 10177.5,
+    "total": 1251832.5
   },
   "c7a9cf18-b01a-4100-b5ab-b266a2054a64": {
     "name": "Ben the Minion",
@@ -60,39 +24,51 @@
     "total": 1426800
   },
   "280997b8-b9e1-4da0-855d-274b18a57370": {
-    "name": "Sam the Minion",
-    "contact": "98765432",
-    "gender": "Male",
-    "dob": "1998-07-23T00:00:00.000Z",
-    "orderDate": "2019-10-24T07:19:12.352Z",
-    "orderType": "Buy",
-    "unit": 3,
-    "btcAddress": "321",
-    "rate": 11500,
-    "total": 34500
-  },
-  "b3492799-0b06-42f7-82be-49ce809cc231": {
     "name": "Amy the Minion",
     "contact": "98765432",
     "gender": "Female",
-    "dob": 898041600000,
-    "orderDate": 1571904428339,
+    "dob": 900979200000,
+    "orderDate": 1571920010705,
     "orderType": "Buy",
-    "unit": 12,
-    "btcAddress": "12",
-    "rate": 11500,
-    "total": 138000
+    "unit": 3,
+    "btcAddress": "321",
+    "rate": 10177.26,
+    "total": 30531.78
   },
-  "d1f8859d-b426-4c70-a985-6957d66fc635": {
-    "name": "Aran the Minion",
+  "b3492799-0b06-42f7-82be-49ce809cc231": {
+    "name": "Bob the Minion",
     "contact": "98765432",
     "gender": "Male",
-    "dob": 855014400000,
-    "orderDate": 1571905389663,
+    "dob": 898041600000,
+    "orderDate": 1571919991071,
+    "orderType": "Sell",
+    "unit": 12,
+    "btcAddress": null,
+    "rate": 10181.28,
+    "total": 122175.36000000002
+  },
+  "273a2a54-8db2-4390-a921-92023f247897": {
+    "name": "Carla the Minion",
+    "contact": "94444223",
+    "gender": "Female",
+    "dob": 834710400000,
+    "orderDate": 1571961600000,
     "orderType": "Buy",
-    "unit": 151,
-    "btcAddress": "151",
-    "rate": 10172.08,
-    "total": 1535984.08
+    "unit": 12.34,
+    "btcAddress": "ABC123455",
+    "rate": 10179.54,
+    "total": 125615.52360000001
+  },
+  "cf618c9b-0472-4b8b-a4af-f1d28677a775": {
+    "name": "Sally the Minion",
+    "contact": "88882222",
+    "gender": "Female",
+    "dob": -1290038400000,
+    "orderDate": 1571920879384,
+    "orderType": "Sell",
+    "unit": 123,
+    "btcAddress": null,
+    "rate": 10182.7,
+    "total": 1252472.1
   }
 }

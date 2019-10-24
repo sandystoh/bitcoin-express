@@ -13,8 +13,13 @@
                 Order Date: {{t.orderDate | date: "medium"}}<br>
                 Units: {{t.unit}}
             </div>
+            <div>
             <div class="edit-btn" (click)="toEdit(t.id)">
                 <mat-icon>edit</mat-icon>
+            </div>
+            <div class="delete-btn" (click)="toDelete(t.name, t.id)">
+                 <mat-icon>delete</mat-icon>
+            </div>
             </div>
         </div>
     </mat-card>

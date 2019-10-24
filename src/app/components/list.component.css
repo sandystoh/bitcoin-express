@@ -1,3 +1,6 @@
+.mat-card {
+    background-color: rgba(255,255,255,0.7);
+}
 .list-area {
     padding: 20px;
 }
@@ -15,4 +18,14 @@
 
 .edit-btn:hover {
     background-color: #ffc100;
+}
+
+.delete-btn {
+    cursor:pointer;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.delete-btn:hover {
+    background-color: #cd5c5c;
 }

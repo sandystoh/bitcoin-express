@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { map, flatMap, toArray } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
-export const API_URL = 'http://localhost:3000/api/';
+const API_URL = environment.API_URL;
 // API = 'https://apiv2.bitcoinaverage.com/indices/global/ticker/all';
 // ?crypto=BTC&fiat=SGD';
 
