@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-import { Transaction } from '../models/transact';
+import { Transaction, TransactResponse } from '../models/transact';
 import * as moment from 'moment';
 import { BitcoinService } from '../services/bitcoin.service';
 import { TransactService } from '../services/transact.service';
@@ -138,13 +138,15 @@ export class FormComponent implements OnInit {
       console.log('edit transaction:', this.id);
       this.transSvc.updateTransaction(this.id, save).subscribe(r => {
         console.log(r);
-        this.router.navigate(['/confirm', r['transactionId']], { queryParams: { edit: true}});
+        const resp = r as TransactResponse;
+        this.router.navigate(['/confirm', resp.transactionId], { queryParams: { edit: true}});
       });
     } else {
       console.log('New transaction');
       this.transSvc.saveTransaction(save).subscribe(r => {
         console.log(r);
-        this.router.navigate(['/confirm', r['transactionId']], { queryParams: { edit: false}});
+        const resp = r as TransactResponse;
+        this.router.navigate(['/confirm', resp.transactionId], { queryParams: { edit: false}});
       });
     }
   }

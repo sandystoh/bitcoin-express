@@ -23,6 +23,7 @@ export class ListComponent implements OnInit {
           ...r[item]
         } as Transaction;
       });
+      this.transactList.sort((a, b) => a.name.localeCompare(b.name));
     });
   }
 

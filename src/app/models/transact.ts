@@ -11,3 +11,10 @@ export interface Transaction {
     total?: number;
     id?: string;
 }
+
+export interface TransactResponse {
+    success: string;
+    message: string;
+    transactionId: string;
+    transaction: Transaction;
+}
