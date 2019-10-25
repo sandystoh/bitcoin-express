@@ -13,7 +13,7 @@ export class ConfirmComponent implements OnInit {
   tr: any;
   id: any;
   sub: any;
-  edit = false;
+  edit = 'Confirmed';
 
   constructor(private transSvc: TransactService, private router: Router,
               private route: ActivatedRoute) { }
@@ -30,7 +30,10 @@ export class ConfirmComponent implements OnInit {
    });
 
     this.route.queryParams.subscribe(params => {
-     this.edit = params.edit;
+     const isEdit = params.edit;
+     if (isEdit === 'true') {
+       this.edit = 'Edited';
+     }
    });
 }
 

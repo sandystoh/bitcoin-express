@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Transaction, TransactResponse } from '../models/transact';
 import * as moment from 'moment';
@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, AfterViewInit {
 
   transactForm: FormGroup;
   model: Transaction = {
@@ -35,10 +35,14 @@ export class FormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private btcSvc: BitcoinService,
               private transSvc: TransactService, private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute, private cd: ChangeDetectorRef) {
     this.transactForm = this.createFormGroup();
     this.startDate = moment();
 
+}
+
+ngAfterViewInit() {
+  this.cd.detectChanges();
 }
 
   async getPrice(): Promise<any> {
@@ -110,6 +114,8 @@ export class FormComponent implements OnInit {
     if (this.transactForm.value.orderType === 'Sell') {
       this.transactForm.get('btcAddress').setValidators(null);
       this.transactForm.get('btcAddress').setErrors(null);
+    } else {
+      this.transactForm.get('btcAddress').setValidators([Validators.required]);
     }
   }
 

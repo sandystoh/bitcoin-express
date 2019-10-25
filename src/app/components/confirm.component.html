@@ -1,8 +1,7 @@
 <div class="transact-form">
         <mat-card class="bit-form">
-<h2 *ngIf="tr && !edit">Your {{tr.orderType}} order has been confirmed!</h2>
-<h2 *ngIf="tr && edit">Your {{tr.orderType}} order has been edited!</h2>
-<div *ngIf = "tr">
+    <div *ngIf="tr !== undefined">
+    <h2 >Your {{tr.orderType}} order has been {{edit}}!</h2>
     <table>
     <tbody>
         <tr><td>Order ID:</td><td class="info">{{id}}</td></tr>
@@ -30,10 +29,11 @@
         <h4>Please wire the Bitcoin to the below Wallet Address.<br>
             Once the Bitcoin has been received received we will send the SGD funds to your PayNow!</h4>
        <div class="center info" ><h4>bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5md</h4></div>
-    </div>
 </div>
 <div class="center pad">
         <button mat-raised-button color="accent" [routerLink]="['/']">Back Home</button>
 </div>
+</div>
 </mat-card>
 </div>
+

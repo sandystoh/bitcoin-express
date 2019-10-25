@@ -1,12 +1,18 @@
 .mat-card {
     background-color: rgba(255,255,255,0.7);
+    min-width: 550px;
 }
 .list-area {
     padding: 20px;
+    height: 85vh;
+    overflow-y: scroll;
+}
+
+.pad {
+    padding-bottom: 150px;
 }
 
 .card {
-    width: 80vw;
     margin: 10px;
 }
 
@@ -29,3 +35,25 @@
 .delete-btn:hover {
     background-color: #cd5c5c;
 }
+
+.header-image {
+    background-image: url('/assets/images/bitcoin-buy-icon.gif');
+    background-size: cover;
+}
+
+.header-image-sell {
+    background-image: url('/assets/images/bitcoin-sell-icon.gif');
+    background-size: cover;
+}
+
+.bold {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-left: 60px;
+}
+
+@media only screen and (max-width: 600px) {
+    .mat-card {
+        min-width: 300px;
+    }
+  }

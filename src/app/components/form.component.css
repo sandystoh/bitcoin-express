@@ -2,6 +2,7 @@
    font-family: 'Muli', sans-serif; 
 }
 
+
 .header {
     margin: auto;
     height: 50vh;
@@ -30,7 +31,7 @@
 }
 
 .submit-button {
-    width: 20vw;
+    width: 35vw;
 }
 
 .mat-card {
@@ -65,6 +66,10 @@
     }
     .second-half{
         width: 80vw;
+    }
+    
+    .form-area {
+        padding-bottom: 200px;
     }
   }
 
