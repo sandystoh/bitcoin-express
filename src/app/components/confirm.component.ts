@@ -23,7 +23,7 @@ export class ConfirmComponent implements OnInit {
       this.id = params.id;
       console.log(this.id);
 
-      this.transSvc.getTransaction(this.id).subscribe(r => {
+      this.transSvc.getTransaction(this.id).then(r => {
         console.log(r);
         this.tr = r;
       });

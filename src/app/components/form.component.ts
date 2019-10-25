@@ -1,10 +1,11 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef} from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Transaction, TransactResponse } from '../models/transact';
 import * as moment from 'moment';
 import { BitcoinService } from '../services/bitcoin.service';
 import { TransactService } from '../services/transact.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form',
@@ -28,7 +29,6 @@ export class FormComponent implements OnInit, AfterViewInit {
   bitcoin = {ask: 0, bid: 0};
   rate = 0;
   transactionAmount = 0;
-  sub: any;
   id = '';
   tr: Transaction;
   request = '';
@@ -55,10 +55,10 @@ ngAfterViewInit() {
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       if (params.id) {
         this.id = params.id;
-        this.transSvc.getTransaction(this.id).subscribe(r => {
+        this.transSvc.getTransaction(this.id).then(r => {
           this.tr = r as Transaction;
           this.transactForm.patchValue(this.tr);
           this.request = 'Edit';
@@ -68,11 +68,11 @@ ngAfterViewInit() {
           });
           this.transactForm.get('dob').setValue(moment(this.tr.dob));
           this.transactForm.get('orderDate').setValue(new Date());
-          }, (e) => console.log(e), () => {
-            this.changeType();
-        });
+          }).then( () => {
+          this.changeType();
+          }).catch((err) => console.log(err) );
       } else {
-        this.route.queryParams.subscribe(p => {
+      this.route.queryParams.subscribe(p => {
           if (p.transact === 'sell') {
             this.transactForm.get('orderType').setValue('Sell');
             this.changeType();
@@ -80,11 +80,11 @@ ngAfterViewInit() {
             this.transactForm.get('orderType').setValue('Buy');
           }
         });
-        this.getPrice().then(() => {
-          this.rate = (this.transactForm.value.orderType === 'Buy') ? this.bitcoin.ask : this.bitcoin.bid;
-        });
-        this.transactForm.get('orderDate').setValue(new Date());
-        this.request = 'Make';
+      this.getPrice().then(() => {
+        this.rate = (this.transactForm.value.orderType === 'Buy') ? this.bitcoin.ask : this.bitcoin.bid;
+      });
+      this.transactForm.get('orderDate').setValue(new Date());
+      this.request = 'Make';
       }
 
    });
@@ -149,18 +149,18 @@ ngAfterViewInit() {
     console.log(save);
     if (this.request === 'Edit') {
       console.log('edit transaction:', this.id);
-      this.transSvc.updateTransaction(this.id, save).subscribe(r => {
+      this.transSvc.updateTransaction(this.id, save).then(r => {
         console.log(r);
         const resp = r as TransactResponse;
         this.router.navigate(['/confirm', resp.transactionId], { queryParams: { edit: true}});
-      });
+      }).catch((err) => console.log(err) );
     } else {
       console.log('New transaction');
-      this.transSvc.saveTransaction(save).subscribe(r => {
+      this.transSvc.saveTransaction(save).then(r => {
         console.log(r);
         const resp = r as TransactResponse;
         this.router.navigate(['/confirm', resp.transactionId], { queryParams: { edit: false}});
-      });
+      }).catch((err) => console.log(err) );
     }
   }
 }

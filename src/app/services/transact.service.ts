@@ -13,23 +13,23 @@ export class TransactService {
   constructor(private http: HttpClient) { }
 
   getAllTransactions() {
-    return this.http.get(API_URL);
+    return this.http.get(API_URL).toPromise();
   }
 
   getTransaction(id) {
     console.log(API_URL, id);
-    return this.http.get(API_URL + id);
+    return this.http.get(API_URL + id).toPromise();
   }
 
   saveTransaction(tran: Transaction) {
-    return this.http.post(API_URL, tran);
+    return this.http.post(API_URL, tran).toPromise();
   }
 
   updateTransaction(id, tran) {
-    return this.http.put(API_URL + id, tran);
+    return this.http.put(API_URL + id, tran).toPromise();
   }
 
   deleteTransaction(id) {
-    return this.http.delete(API_URL + id);
+    return this.http.delete(API_URL + id).toPromise();
   }
 }

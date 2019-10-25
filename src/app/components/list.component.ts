@@ -26,7 +26,7 @@ export class ListComponent implements OnInit {
   }
 
   getList() {
-    this.transSvc.getAllTransactions().subscribe(r => {
+    this.transSvc.getAllTransactions().then(r => {
       this.transactList = Object.keys(r).map(item => {
         return {
           id: item,
@@ -43,7 +43,7 @@ export class ListComponent implements OnInit {
   }
 
   toDelete(name, id) {
-    this.transactSvc.deleteTransaction(id).subscribe(() => {
+    this.transactSvc.deleteTransaction(id).then(() => {
         this.snackBar.open('Transaction by ' + name + ' Deleted', 'OK', {
           duration: 2000,
         });

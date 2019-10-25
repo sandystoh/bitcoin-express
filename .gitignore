@@ -3,6 +3,9 @@
 server/node_modules
 server/package
 server/.env
+server/public
+!server/public/db
+!server/public/db/*
 
 # compiled output
 /dist
