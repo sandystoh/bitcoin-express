@@ -1,7 +1,8 @@
-<div class="header">Bitcoin Exchange<br>
-
+<div class="header" fxLayout="column" fxLayoutGap="10vw">
+    <div>Bitcoin Exchange</div>
     <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="3vw">
         <button mat-raised-button color="accent" [routerLink]="['/list']" fragment="main">List</button>
-        <button mat-raised-button color="accent" [routerLink]="['/transact']" fragment="main">Transact</button>
-    </div>
+        <button mat-raised-button color="accent" [routerLink]="['/transact']" [queryParams]="{transact: 'sell'}">Sell</button>
+        <button mat-raised-button color="accent" [routerLink]="['/transact']" [queryParams]="{transact: 'buy'}">Buy</button>
+</div>
 </div>

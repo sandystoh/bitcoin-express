@@ -1,5 +1,14 @@
 <div class="list-area">
-<div *ngIf="transactList === undefined">
+<div *ngIf="isLoading">
+    <mat-card fxLayout="row column" 
+    class="progress" fxLayoutAlign="center" >
+        <mat-progress-spinner 
+        color="accent"
+        mode="indeterminate">
+    </mat-progress-spinner>
+    </mat-card>
+</div>
+<div *ngIf="transactList === undefined && !isLoading">
     <mat-card>
         No Items in List!
     </mat-card>

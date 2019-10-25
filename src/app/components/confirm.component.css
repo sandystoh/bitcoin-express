@@ -28,8 +28,22 @@ table, td {
     border: 1px dashed #666;
     background: rgba(100,150,200,0.5);
     min-width: 40vw;
+    word-break: break-all; 
+    word-wrap: break-word; 
 }
 
 .pad {
     padding-top: 30px;
 }
+
+.btc-address {
+    padding: 0px 10px;
+    word-break: break-all; 
+    word-wrap: break-word; 
+}
+
+@media only screen and (max-width: 500px) {
+    .transact-form {
+        padding-bottom: 200px;
+    }
+  }

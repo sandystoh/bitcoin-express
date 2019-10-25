@@ -21,3 +21,25 @@
 a:visited {
     color: #fff;
 }
+
+.buttons {
+    width: 50vw;
+}
+
+.mat-raised-button {
+    font-family: 'Muli', sans-serif; 
+    border: 1px dashed #ffc107;
+    background: rgba(255,255,255,0.8);
+    font-weight: 700;
+}
+
+.mat-raised-button:hover {
+    background: rgba(255,193,7,0.8);
+    border: 1px dashed #ffc107;
+}
+
+@media only screen and (max-width: 600px) {
+    .for-large-screens {
+        display: none;
+    }
+  }

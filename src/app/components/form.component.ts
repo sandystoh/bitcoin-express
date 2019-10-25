@@ -72,12 +72,19 @@ ngAfterViewInit() {
             this.changeType();
         });
       } else {
+        this.route.queryParams.subscribe(p => {
+          if (p.transact === 'sell') {
+            this.transactForm.get('orderType').setValue('Sell');
+            this.changeType();
+          } else {
+            this.transactForm.get('orderType').setValue('Buy');
+          }
+        });
         this.getPrice().then(() => {
           this.rate = (this.transactForm.value.orderType === 'Buy') ? this.bitcoin.ask : this.bitcoin.bid;
         });
         this.transactForm.get('orderDate').setValue(new Date());
-        this.transactForm.get('orderType').setValue('Buy');
-        this.request = 'New';
+        this.request = 'Make';
       }
 
    });

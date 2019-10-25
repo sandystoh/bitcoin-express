@@ -3,6 +3,7 @@ import { TransactService } from '../services/transact.service';
 import { Transaction } from '../models/transact';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-list',
@@ -13,12 +14,14 @@ export class ListComponent implements OnInit {
 
   transactList: any;
   records: any;
+  isLoading = true;
 
   constructor(private transSvc: TransactService, private router: Router,
               private transactSvc: TransactService,
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.getList();
   }
 
@@ -31,6 +34,7 @@ export class ListComponent implements OnInit {
         } as Transaction;
       });
       this.transactList.sort((a, b) => b.orderDate - a.orderDate);
+      this.isLoading = false;
     });
   }
 

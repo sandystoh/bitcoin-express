@@ -12,6 +12,10 @@
     padding-bottom: 150px;
 }
 
+.progress {
+    padding: 30px;
+}
+
 .card {
     margin: 10px;
 }
